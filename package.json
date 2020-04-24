@@ -1,0 +1,11 @@
+{
+  "name": "k9",
+  "version": "1.0.0",
+  "description": "Descriptions are for those who read descriptions.",
+  "main": "bot.js",
+  "author": "The Doctor",
+  "private": true,
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  }
+}
