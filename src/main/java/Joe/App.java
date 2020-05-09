@@ -17,7 +17,7 @@ class Game {
 
 
 public class App {
-    static boolean active = false;
+    static boolean active = ture;
     static ArrayList<Game> games = new ArrayList<Game>();
 
     static Game findGame(String name) {
@@ -48,20 +48,24 @@ public class App {
     }
 
     public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Discord token missing");
+            System.exit(20);
+        }
         String token = args[0];
         DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
 
         api.addMessageCreateListener(event -> {
             String message = event.getMessageContent();
 
-            if (message.equalsIgnoreCase("!k9 activate")) {
+            if (message.equalsIgnoreCase("!activate")) {
                 active = true;
                 event.getChannel().sendMessage("Master?");
             } else if (active) {
-                if (message.equalsIgnoreCase("!k9 sleep")) {
+                if (message.equalsIgnoreCase("!sleep")) {
                     event.getChannel().sendMessage("Affirmative.");
                     active = false;
-                } else if (message.equalsIgnoreCase("!k9 game")) {
+                } else if (message.equalsIgnoreCase("!game")) {
                     if (findGame("RPS") != null) {
                         event.getChannel().sendMessage("Game already in progres.");
                         return;
