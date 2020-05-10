@@ -22,6 +22,7 @@ public class App {
 
         modules.add(new GameRPS());
         modules.add(new GameGuessNumber());
+        modules.add(new Calculator());
 
         api.addMessageCreateListener(event -> {
             String message = event.getMessageContent();
