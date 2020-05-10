@@ -18,9 +18,12 @@ public class GameGuessNumber implements Module {
                 return null;
             }
             int playerGuess = Integer.parseInt(message);
+            guessCount++;
             if (playerGuess == current) {
                 current = 0;
-                return "**Correct!** You win!! :tada:";
+                int attempts = guessCount;
+                guessCount = 0;
+                return "**Correct!** You win!! :tada:\nIt took you " + attempts + " attempts";
             } else if (playerGuess < current) {
                 return "Too low, try again!";
             } else if (playerGuess > 20) {
