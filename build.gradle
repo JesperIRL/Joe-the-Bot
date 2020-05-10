@@ -6,6 +6,10 @@ plugins {
     id 'application'
 }
 
+compileJava {
+    options.compilerArgs << '-Xlint:deprecation'
+}
+
 repositories {
     mavenCentral()
 }
