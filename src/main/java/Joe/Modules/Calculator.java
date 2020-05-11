@@ -32,8 +32,8 @@ public class Calculator implements Module {
     public String handleMessage(String message) {
         if (message.equals("!calc")) {
             return "Evaluates mathematical expressions. Answers can be stored for later use in variables " +
-                    "or can be accessed through $0, $1, $2, and so on. The " +
-                    "following symbols and built in functions are supported: " +
+                    "or can be accessed through `$n`, where `$0` is the most recent answer, `$1` the one before etc.\n" +
+                    "The following symbols and built-in functions are supported:\n" +
                     "+ - / * ^ % ( ) = ~ & | < > && || << >> PI E sin cos tan asin acos atan sinh cosh tanh " +
                     "log ln lg abs rnd sqrt cbrt";
         } else if (message.equals("!calc reset")) {
