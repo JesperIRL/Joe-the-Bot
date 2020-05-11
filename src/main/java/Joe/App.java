@@ -20,9 +20,10 @@ public class App {
         String token = args[0];
         DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
 
-        modules.add(new GameRPS());
-        modules.add(new GameGuessNumber());
         modules.add(new Calculator());
+        modules.add(new GameGuessNumber());
+        modules.add(new GameRPS());
+        modules.add(new MasterMind());
 
         api.addMessageCreateListener(event -> {
             String message = event.getMessageContent();
