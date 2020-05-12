@@ -24,6 +24,7 @@ public class App {
         modules.add(new GameGuessNumber());
         modules.add(new GameRPS());
         modules.add(new MasterMind());
+        modules.add(new Time());
 
         api.addMessageCreateListener(event -> {
             String message = event.getMessageContent();
