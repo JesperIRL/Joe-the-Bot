@@ -1,32 +1,42 @@
 package Joe.Modules;
 
-import Joe.Module;
+import Joe.*;
 
 import java.util.*;
 
-public class MasterMind implements Module {
+public class MasterMind implements BotModule {
     private ArrayList<String> moves;
     private String key;
     private int level = 4;
 
-    public String handleMessage(String message) {
-        if (message.equals("!mm")) {
-            if (key != null) {
-                String movesList = moves.get(0);
-                for (int i = 1; i < moves.size(); i++) {
-                    movesList += "\n" + moves.get(i);
+    public String handleCommand(Message message) {
+        if (message.command().equals("!mm")) {
+            if (message.params() == null) {
+                if (key != null) {
+                    if (moves.size() > 0) {
+                        String movesList = moves.get(0);
+                        for (int i = 1; i < moves.size(); i++) {
+                            movesList += "\n" + moves.get(i);
+                        }
+                        return "A game is in progress. Game history:\n" + movesList;
+                    } else {
+                        return "Usage: `!mm [code]`";
+                    }
+                } else {
+                    return newGame(null);
                 }
-                return "A game is in progress. Game history:\n" + movesList;
             } else {
-                return newGame(null);
-            }
-        } else if (message.startsWith("!mm ")) {
-            if (key != null) {
-                return guess(message.substring(4));
-            } else {
-                return newGame(message.substring(4));
+                if (key != null) {
+                    return guess(message.params());
+                } else {
+                    return newGame(message.params());
+                }
             }
         }
+        return null;
+    }
+
+    public String handleMessage(Message message) {
         return null;
     }
 
@@ -56,7 +66,7 @@ public class MasterMind implements Module {
         }
         key = generateKey(level);
         moves = new ArrayList<String>();
-        return "Welcome to Master Mind! Try to figure out the secret code " +
+        return "Welcome to Master :brain:! Try to figure out the secret code " +
             "by typing `!mm code` The code is " + level + " digits.";
     }
 

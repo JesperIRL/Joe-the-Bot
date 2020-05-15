@@ -1,24 +1,31 @@
 package Joe.Modules;
 
-import Joe.Module;
+import Joe.*;
 
 import java.text.*;
 import java.util.*;
 import java.time.*;
 import java.time.format.*;
 
-public class Time implements Module {
-    public String handleMessage(String message)
-    {
-        if (message.equals("!time")) {
-            return time(false);
-        } else if (message.equals("!date")) {
-            return time(true);
-        } else if (message.startsWith("!time ")) {
-            return parseTime(message.substring(6));
-        } else if (message.startsWith("!date ")) {
-            return parseDateTime(message.substring(6));
+public class Time implements BotModule {
+    public String handleCommand(Message message) {
+        if (message.command().equals("!time")) {
+            if (message.params() == null) {
+                return time(false);
+            } else {
+                return parseTime(message.params());
+            }
+        } else if (message.command().equals("!date")) {
+            if (message.params() == null) {
+                return time(true);
+            } else {
+                return parseDateTime(message.params());
+            }
         }
+        return null;
+    }
+
+    public String handleMessage(Message message) {
         return null;
     }
 

@@ -1,23 +1,34 @@
 package Joe.Modules;
 
-import Joe.Module;
+import Joe.*;
 
-public class GameGuessNumber implements Module {
+/* Todo:
+ * !guessnumber [maxGuess]
+ */
+
+public class GameGuessNumber implements BotModule {
     int current = 0;
     int guessCount = 0;
 
-    public String handleMessage(String message) {
-        if (message.equalsIgnoreCase("!guessNumber")) {
-            if (current != 0) {
-                return "Game already in progress.";
+    public String handleCommand(Message message) {
+        if (message.command().equals("!guessnumber")) {
+            if (message.params() == null) {
+                if (current != 0) {
+                    return "Game already in progress.";
+                }
+                current = (int)Math.floor(Math.random() * 20 + 1);
+                return "New game started. Guess a number between 1 and 20.";
             }
-            current = (int)Math.floor(Math.random() * 20 + 1);
-            return "New game started. Guess a number between 1 and 20.";
-        } else if (message.matches("[0123456789]+")) {
+        }
+        return null;
+    }
+
+    public String handleMessage(Message message) {
+        if (message.message().matches("[0123456789]+")) {
             if (current == 0) {
                 return null;
             }
-            int playerGuess = Integer.parseInt(message);
+            int playerGuess = Integer.parseInt(message.message());
             guessCount++;
             if (playerGuess == current) {
                 current = 0;

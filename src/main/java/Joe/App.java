@@ -1,6 +1,6 @@
 package Joe;
 
-import Joe.Module;
+import Joe.*;
 import Joe.Modules.*;
 
 import org.javacord.api.DiscordApi;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class App {
     static boolean active = true;
-    static ArrayList<Module> modules = new ArrayList<Module>();
+    static ArrayList<BotModule> modules = new ArrayList<BotModule>();
 
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -27,25 +27,33 @@ public class App {
         modules.add(new Time());
 
         api.addMessageCreateListener(event -> {
-            String message = event.getMessageContent();
+            Message message = new Message(event);
 
-            if (message.equalsIgnoreCase("!activate")) {
-                active = true;
-                event.getChannel().sendMessage("Master?");
-            } else if (active) {
-                if (message.equalsIgnoreCase("!sleep")) {
-                    event.getChannel().sendMessage("Affirmative.");
-                    active = false;
-                } else {
-                    for (Module mod: modules) {
-                        String reply = mod.handleMessage(message);
-                        if (reply != null) {
-                            event.getChannel().sendMessage(reply);
+            if (message.command() != null) {
+                if (message.command().equals("!activate")) {
+                    active = true;
+                    message.channel().sendMessage("Master?");
+                } else if (active) {
+                    if (message.command().equals("!sleep")) {
+                        message.channel().sendMessage("Affirmative.");
+                        active = false;
+                    } else {
+                        for (BotModule mod: modules) {
+                            String reply = mod.handleCommand(message);
+                            if (reply != null) {
+                                message.channel().sendMessage(reply);
+                            }
                         }
+                    }
+                }
+            } else {
+                for (BotModule mod: modules) {
+                    String reply = mod.handleMessage(message);
+                    if (reply != null) {
+                        message.channel().sendMessage(reply);
                     }
                 }
             }
         });
     }
 }
-

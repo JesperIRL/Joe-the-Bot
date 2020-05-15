@@ -1,27 +1,31 @@
 package Joe.Modules;
 
-import Joe.Module;
+import Joe.*;
 
 import java.io.*;
 import java.util.*;
 
-abstract class CalcException extends RuntimeException { }
+/* Todo:
+ * Move description to a !help text
+ */
 
-class SyntaxErrorException extends CalcException { }
+public class Calculator implements BotModule {
+    private abstract class CalcException extends RuntimeException { }
 
-class UnknownIdentifierException extends CalcException {
-    private String id;
+    private class SyntaxErrorException extends CalcException { }
 
-    public UnknownIdentifierException(String id) {
-        this.id = id;
+    private class UnknownIdentifierException extends CalcException {
+        private String id;
+
+        public UnknownIdentifierException(String id) {
+            this.id = id;
+        }
+
+        public String getID() {
+            return id;
+        }
     }
 
-    public String getID() {
-        return id;
-    }
-}
-
-public class Calculator implements Module {
     private HashMap<String, Double> variables = new HashMap<String, Double>();
     private ArrayList<Double> memory = new ArrayList<Double>();
 
@@ -29,20 +33,26 @@ public class Calculator implements Module {
         setupBuiltIn();
     }
 
-    public String handleMessage(String message) {
-        if (message.equals("!calc")) {
-            return "Evaluates mathematical expressions. Answers can be stored for later use in variables " +
-                    "or can be accessed through `$n`, where `$0` is the most recent answer, `$1` the one before etc.\n" +
-                    "The following symbols and built-in functions are supported:\n" +
-                    "+ - / * ^ % ( ) = ~ & | < > && || << >> PI E sin cos tan asin acos atan sinh cosh tanh " +
-                    "log ln lg abs rnd sqrt cbrt";
-        } else if (message.equals("!calc reset")) {
-            variables.clear();
-            memory.clear();
-            setupBuiltIn();
-        } else if (message.startsWith("!calc ")) {
-            return calc(message.substring(6));
+    public String handleCommand(Message message) {
+        if (message.command().equals("!calc")) {
+            if (message.params() == null) {
+                return "Evaluates mathematical expressions. Answers can be stored for later use in variables " +
+                        "or can be accessed through `$n`, where `$0` is the most recent answer, `$1` the one before etc.\n" +
+                        "The following symbols and built-in functions are supported:\n" +
+                        "+ - / * ^ % ( ) = ~ & | < > && || << >> PI E sin cos tan asin acos atan sinh cosh tanh " +
+                        "log ln lg abs rnd sqrt cbrt";
+            } else if (message.params().equals("reset")) {
+                variables.clear();
+                memory.clear();
+                setupBuiltIn();
+            } else {
+                return calc(message.params());
+            }
         }
+        return null;
+    }
+
+    public String handleMessage(Message message) {
         return null;
     }
 
