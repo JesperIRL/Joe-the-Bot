@@ -8,7 +8,7 @@ import org.javacord.api.DiscordApiBuilder;
 
 import java.util.ArrayList;
 
-public class App {
+public class TheBot {
     static boolean active = true;
     static ArrayList<BotModule> modules = new ArrayList<BotModule>();
 
