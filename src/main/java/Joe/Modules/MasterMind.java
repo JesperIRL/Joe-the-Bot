@@ -9,6 +9,16 @@ public class MasterMind implements BotModule {
     private String key;
     private int level = 4;
 
+    public Collection<String> commands() {
+        ArrayList<String> comm = new ArrayList<String>();
+        comm.add("!mm");
+        return comm;
+    }
+
+    public String description() {
+        return "Master mind, the game.";
+    }
+
     public String handleCommand(Message message) {
         if (message.command().equals("!mm")) {
             if (message.params() == null) {

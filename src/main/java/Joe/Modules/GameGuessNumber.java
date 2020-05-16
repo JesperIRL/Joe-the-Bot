@@ -2,6 +2,8 @@ package Joe.Modules;
 
 import Joe.*;
 
+import java.util.*;
+
 /* Todo:
  * !guessnumber [maxGuess]
  */
@@ -9,6 +11,16 @@ import Joe.*;
 public class GameGuessNumber implements BotModule {
     int current = 0;
     int guessCount = 0;
+
+    public Collection<String> commands() {
+        ArrayList<String> comm = new ArrayList<String>();
+        comm.add("!guessnumber");
+        return comm;
+    }
+
+    public String description() {
+        return "Guess a number.";
+    }
 
     public String handleCommand(Message message) {
         if (message.command().equals("!guessnumber")) {

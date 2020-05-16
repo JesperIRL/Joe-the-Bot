@@ -2,6 +2,8 @@ package Joe.Modules;
 
 import Joe.*;
 
+import java.util.*;
+
 /* Todo:
  * !rps [rock|paper|scissors]
  * Rename class to RPS
@@ -23,6 +25,19 @@ public class GameRPS implements BotModule {
             case SCISSORS: return "scissors";
             default: return "error";
         }
+    }
+
+    public Collection<String> commands() {
+        ArrayList<String> comm = new ArrayList<String>();
+        comm.add("!rps");
+        comm.add("!rock");
+        comm.add("!paper");
+        comm.add("!scissors");
+        return comm;
+    }
+
+    public String description() {
+        return "Rock, Paper, or Scissors? That is the question. The bot chose one, you chose one, only one can win.";
     }
 
     public String handleCommand(Message message) {

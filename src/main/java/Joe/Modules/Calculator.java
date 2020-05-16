@@ -33,14 +33,24 @@ public class Calculator implements BotModule {
         setupBuiltIn();
     }
 
+    public Collection<String> commands() {
+        ArrayList<String> comm = new ArrayList<String>();
+        comm.add("!calc");
+        return comm;
+    }
+
+    public String description() {
+        return "Evaluates mathematical expressions. Answers can be stored for later use in variables " +
+                "or can be accessed through `$n`, where `$0` is the most recent answer, `$1` the one before etc.\n" +
+                "The following symbols and built-in functions are supported:\n" +
+                "`+ - / * ^ % ( ) = ~ & | < > && || << >> PI E sin cos tan asin acos atan sinh cosh tanh " +
+                "log ln lg abs rnd sqrt cbrt`";
+    }
+
     public String handleCommand(Message message) {
         if (message.command().equals("!calc")) {
             if (message.params() == null) {
-                return "Evaluates mathematical expressions. Answers can be stored for later use in variables " +
-                        "or can be accessed through `$n`, where `$0` is the most recent answer, `$1` the one before etc.\n" +
-                        "The following symbols and built-in functions are supported:\n" +
-                        "+ - / * ^ % ( ) = ~ & | < > && || << >> PI E sin cos tan asin acos atan sinh cosh tanh " +
-                        "log ln lg abs rnd sqrt cbrt";
+                return "Usage: `!calc` _expression_ | `reset`";
             } else if (message.params().equals("reset")) {
                 variables.clear();
                 memory.clear();

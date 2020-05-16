@@ -8,6 +8,17 @@ import java.time.*;
 import java.time.format.*;
 
 public class Time implements BotModule {
+    public Collection<String> commands() {
+        ArrayList<String> comm = new ArrayList<String>();
+        comm.add("!time");
+        comm.add("!date");
+        return comm;
+    }
+
+    public String description() {
+        return "Check the time in some time zones.";
+    }
+
     public String handleCommand(Message message) {
         if (message.command().equals("!time")) {
             if (message.params() == null) {
