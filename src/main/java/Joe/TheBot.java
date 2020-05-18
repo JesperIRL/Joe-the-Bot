@@ -21,6 +21,7 @@ public class TheBot {
         DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
 
         modules.add(new Calculator());
+        modules.add(new EightBall());
         modules.add(new GameGuessNumber());
         modules.add(new GameRPS());
         modules.add(new MasterMind());
