@@ -8,7 +8,7 @@ import java.util.*;
  * !guessnumber [maxGuess]
  */
 
-public class GameGuessNumber implements BotModule {
+public class GuessNumber implements BotModule {
     int current = 0;
     int guessCount = 0;
 
@@ -30,6 +30,8 @@ public class GameGuessNumber implements BotModule {
                 }
                 current = (int)Math.floor(Math.random() * 20 + 1);
                 return "New game started. Guess a number between 1 and 20.";
+            } else {
+                return "Usage: `!guessnumber`";
             }
         }
         return null;

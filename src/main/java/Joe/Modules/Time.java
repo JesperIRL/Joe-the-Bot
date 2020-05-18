@@ -77,7 +77,7 @@ public class Time implements BotModule {
                                          LocalTime.parse(time, DateTimeFormatter.ofPattern("H:mm")),
                                          ZoneId.of("Etc/UTC")), false);
         } catch (DateTimeParseException pe) {
-            return "Usage: `!time [hour:minutes]` Assumes UTC.";
+            return "Usage: `!time` [hour`:`minutes] -- assumes UTC.";
         }
     }
 
@@ -92,7 +92,7 @@ public class Time implements BotModule {
             date = String.join(" ", sloppy);
             return time(ZonedDateTime.parse(date, DateTimeFormatter.ofPattern("d MMM yyyy H:mm z")), true);
         } catch (DateTimeParseException pe) {
-            return "Usage: `!date [day month year hour:minutes timezone]`";
+            return "Usage: `!date` [_day_ _month_ _year_ _hour_`:`_minutes_ _timezone_]";
         }
     }
 }

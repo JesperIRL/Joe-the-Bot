@@ -22,9 +22,9 @@ public class TheBot {
 
         modules.add(new Calculator());
         modules.add(new EightBall());
-        modules.add(new GameGuessNumber());
-        modules.add(new GameRPS());
+        modules.add(new GuessNumber());
         modules.add(new MasterMind());
+        modules.add(new RPS());
         modules.add(new Time());
 
         api.addMessageCreateListener(event -> {

@@ -5,24 +5,21 @@ import Joe.*;
 import java.util.*;
 
 /* Todo:
- * !rps [rock|paper|scissors]
  * Rename class to RPS
  * Allow emojis and read guesses from messages, not commands
  */
 
-public class GameRPS implements BotModule {
+public class RPS implements BotModule {
     private final int ROCK = 0;
     private final int PAPER = 1;
     private final int SCISSORS = 2;
     private final int NONE = 3;
 
-    private int my_choise = NONE;
-
     private String intToWord(int n) {
         switch (n) {
-            case ROCK: return "rock";
-            case PAPER: return "paper";
-            case SCISSORS: return "scissors";
+            case ROCK: return ":curling_stone:";
+            case PAPER: return ":roll_of_paper:";
+            case SCISSORS: return ":scissors:";
             default: return "error";
         }
     }
@@ -30,9 +27,6 @@ public class GameRPS implements BotModule {
     public Collection<String> commands() {
         ArrayList<String> comm = new ArrayList<String>();
         comm.add("!rps");
-        comm.add("!rock");
-        comm.add("!paper");
-        comm.add("!scissors");
         return comm;
     }
 
@@ -43,17 +37,12 @@ public class GameRPS implements BotModule {
     public String handleCommand(Message message) {
         if (message.command().equals("!rps")) {
             if (message.params() == null) {
-                if (my_choise != NONE) {
-                    return "Game already in progress.";
-                }
-                my_choise = (int)Math.floor(Math.random() * 3);
-                return "New game started. Choose one; rock, paper, or scissors.";
+                return "Usage: `!rps` <`rock`|`paper`|`scissors`>";
+            } else if (message.params().equalsIgnoreCase("rock") || message.params().equalsIgnoreCase("paper") || message.params().equalsIgnoreCase("scissors")) {
+                return game(message.params().toLowerCase());
+            } else {
+                return "Usage: `!rps` <`rock`|`paper`|`scissors`>";
             }
-        } else if (message.command().equals("!rock") || message.command().equals("!paper") || message.command().equals("!scissors")) {
-            if (my_choise == NONE) {
-                return "No game in progress.";
-            }
-            return game(message.command());
         }
         return null;
     }
@@ -64,12 +53,13 @@ public class GameRPS implements BotModule {
 
     private String game(String command) {
         int guess = ROCK;
-        if (command.equals("!paper")) {
+        if (command.equals("paper")) {
             guess = PAPER;
-        } else if (command.equals("!scissors")) {
+        } else if (command.equals("scissors")) {
             guess = SCISSORS;
         }
 
+        int my_choise = (int)Math.floor(Math.random() * 3);
         String answer;
         if (my_choise == guess) {
             answer = "Same as me - Draw!";

@@ -72,7 +72,7 @@ public class MasterMind implements BotModule {
             printUsage = true;
         }
         if (arg != null && printUsage) {
-            return "Usage: `!mm [level]` where `level` is [1-9].";
+            return "Usage: `!mm` [_level_] -- where `level` is 1-9.";
         }
         key = generateKey(level);
         moves = new ArrayList<String>();

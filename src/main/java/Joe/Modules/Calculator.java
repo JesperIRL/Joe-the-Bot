@@ -50,7 +50,7 @@ public class Calculator implements BotModule {
     public String handleCommand(Message message) {
         if (message.command().equals("!calc")) {
             if (message.params() == null) {
-                return "Usage: `!calc` _expression_ | `reset`";
+                return "Usage: `!calc` <_expression_|`reset`>";
             } else if (message.params().equals("reset")) {
                 variables.clear();
                 memory.clear();
