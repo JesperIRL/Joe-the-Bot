@@ -23,6 +23,7 @@ public class TheBot {
         modules.add(new Calculator());
         modules.add(new EightBall());
         modules.add(new GuessNumber());
+        modules.add(new Help(modules));
         modules.add(new MasterMind());
         modules.add(new RPS());
         modules.add(new Time());
@@ -38,16 +39,6 @@ public class TheBot {
                     if (message.command().equals("!sleep")) {
                         message.channel().sendMessage("Affirmative.");
                         active = false;
-                    } else if (message.command().equals("!help")) {
-                        if (message.params() == null) {
-                            String reply = "Available commands:\n";
-                            for (BotModule mod: modules) {
-                                reply += mod.commands();
-                            }
-                            if (reply != null) {
-                                message.channel().sendMessage(reply);
-                            }
-                        }
                     } else {
                         for (BotModule mod: modules) {
                             String reply = mod.handleCommand(message);
