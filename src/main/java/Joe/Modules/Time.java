@@ -7,7 +7,7 @@ import java.util.*;
 import java.time.*;
 import java.time.format.*;
 
-public class Time implements BotModule {
+public class Time extends AbstractBotModule {
     public Collection<String> commands() {
         ArrayList<String> comm = new ArrayList<String>();
         comm.add("!time");
@@ -33,10 +33,6 @@ public class Time implements BotModule {
                 return parseDateTime(message.params());
             }
         }
-        return null;
-    }
-
-    public String handleMessage(Message message) {
         return null;
     }
 

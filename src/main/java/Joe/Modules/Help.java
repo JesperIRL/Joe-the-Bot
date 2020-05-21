@@ -4,7 +4,7 @@ import Joe.*;
 
 import java.util.*;
 
-public class Help implements BotModule {
+public class Help extends AbstractBotModule {
     private ArrayList<BotModule> modules;
 
     public Help(ArrayList<BotModule> modules) {
@@ -40,10 +40,6 @@ public class Help implements BotModule {
                 }
             }
         }
-        return null;
-    }
-
-    public String handleMessage(Message message) {
         return null;
     }
 }

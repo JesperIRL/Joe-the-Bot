@@ -9,7 +9,7 @@ import java.util.*;
  * Move description to a !help text
  */
 
-public class Calculator implements BotModule {
+public class Calculator extends AbstractBotModule {
     private abstract class CalcException extends RuntimeException { }
 
     private class SyntaxErrorException extends CalcException { }
@@ -59,10 +59,6 @@ public class Calculator implements BotModule {
                 return calc(message.params());
             }
         }
-        return null;
-    }
-
-    public String handleMessage(Message message) {
         return null;
     }
 

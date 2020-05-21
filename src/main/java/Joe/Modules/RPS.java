@@ -9,7 +9,7 @@ import java.util.*;
  * Allow emojis and read guesses from messages, not commands
  */
 
-public class RPS implements BotModule {
+public class RPS extends AbstractBotModule {
     private final int ROCK = 0;
     private final int PAPER = 1;
     private final int SCISSORS = 2;
@@ -44,10 +44,6 @@ public class RPS implements BotModule {
                 return "Usage: `!rps` <`rock`|`paper`|`scissors`>";
             }
         }
-        return null;
-    }
-
-    public String handleMessage(Message message) {
         return null;
     }
 

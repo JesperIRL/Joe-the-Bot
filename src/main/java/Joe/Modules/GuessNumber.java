@@ -8,7 +8,7 @@ import java.util.*;
  * !guessnumber [maxGuess]
  */
 
-public class GuessNumber implements BotModule {
+public class GuessNumber extends AbstractBotModule {
     int current = 0;
     int guessCount = 0;
 

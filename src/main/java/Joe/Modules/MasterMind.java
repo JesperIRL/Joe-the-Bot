@@ -4,7 +4,7 @@ import Joe.*;
 
 import java.util.*;
 
-public class MasterMind implements BotModule {
+public class MasterMind extends AbstractBotModule {
     private ArrayList<String> moves;
     private String key;
     private int level = 4;
@@ -43,10 +43,6 @@ public class MasterMind implements BotModule {
                 }
             }
         }
-        return null;
-    }
-
-    public String handleMessage(Message message) {
         return null;
     }
 

@@ -4,7 +4,7 @@ import Joe.*;
 
 import java.util.*;
 
-public class EightBall implements BotModule {
+public class EightBall extends AbstractBotModule {
     ArrayList<String> answers = new ArrayList<String>();
     
     public EightBall() {
@@ -48,10 +48,6 @@ public class EightBall implements BotModule {
                 return answers.get(answer);
             }
         }
-        return null;
-    }
-
-    public String handleMessage(Message message) {
         return null;
     }
 }
