@@ -37,6 +37,8 @@ public class Calculator extends AbstractBotModule {
     public String description() {
         return "Evaluates mathematical expressions. Answers can be stored for later use in variables " +
                 "or can be accessed through `$n`, where `$0` is the most recent answer, `$1` the one before etc.\n" +
+                "Numbers can be written as integers, floats (both `.` and `,` are accepted as decimal sign), or " +
+                "hexadecimal (starting with `0x`)\n" +
                 "The following symbols and built-in functions are supported:\n" +
                 "`+ - / * ^ % ( ) = ~ & | < > && || << >> PI E sin cos tan asin acos atan sinh cosh tanh " +
                 "log ln lg abs rnd sqrt cbrt`";
@@ -244,7 +246,12 @@ public class Calculator extends AbstractBotModule {
         /* $n */
         if (next == '$') {
             sr.mark(1);
-            int a = (int)readNumber(sr);
+            next = sr.read();
+            if (!Character.isDigit(next)) {
+                throw new SyntaxErrorException();
+            }
+            sr.reset();
+            int a = (int)readInteger(sr);
             if (a >= memory.size())
                 throw new UnknownIdentifierException("$" + a);
             return memory.get(a);
@@ -300,7 +307,7 @@ public class Calculator extends AbstractBotModule {
     }
 
 
-    private double readNumber(StringReader sr) throws IOException {
+    private double readInteger(StringReader sr) throws IOException {
         double a = 0;
         int next = sr.read();
 
@@ -309,6 +316,26 @@ public class Calculator extends AbstractBotModule {
             a = a * 10 + (next - '0');
             next = sr.read();
         }
+
+        sr.reset();
+        return a;
+    }
+
+    private double readNumber(StringReader sr) throws IOException {
+        int next = sr.read();
+        if (next == '0') {
+            sr.mark(1);
+            next = sr.read();
+            if (next == 'x') {
+                sr.mark(1);
+                return readHex(sr);
+            }
+            sr.reset();
+        }
+        sr.reset();
+
+        double a = readInteger(sr);
+        next = sr.read();
 
         if (next == '.' || next == ',') {
             int frac = 10;
@@ -324,6 +351,40 @@ public class Calculator extends AbstractBotModule {
 
         sr.reset();
         return a;
+    }
+
+    private int hexValue(char c) {
+        c = Character.toUpperCase(c);
+        if (Character.isDigit(c)) {
+            return c - '0';
+        } else if (c == 'A') {
+            return 10;
+        } else if (c == 'B') {
+            return 11;
+        } else if (c == 'C') {
+            return 12;
+        } else if (c == 'D') {
+            return 13;
+        } else if (c == 'E') {
+            return 14;
+        } else if (c == 'F') {
+            return 15;
+        }
+        return 0;
+    }
+
+    private double readHex(StringReader sr) throws IOException {
+        double a = 0;
+        int next = sr.read();
+
+        while (Character.isDigit(next) || next == 'a' || next == 'b' || next == 'c' || next == 'd' || next == 'e' || next == 'f') {
+            sr.mark(1);
+            a = a * 16 + hexValue((char)next);
+            next = sr.read();
+        }
+
+        sr.reset();
+        return Double.valueOf(a);
     }
 
     private String readIdentifier(StringReader sr) throws IOException {
