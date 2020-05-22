@@ -1,19 +1,17 @@
-package Joe;
+package joe;
 
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.event.message.CertainMessageEvent;
 
-public class Message {
+public class BotMessage {
     private CertainMessageEvent event;
-    private TextChannel channel;
     private String message;
     private String command;
     private String params;
 
-    public Message(CertainMessageEvent event) {
+    public BotMessage(CertainMessageEvent event) {
         this.event = event;
         message = event.getMessageContent();
-        channel = event.getChannel();
         if (message.charAt(0) == '!') {
             int space = message.indexOf(' ');
             if (space > 0) {
@@ -34,7 +32,7 @@ public class Message {
     }
 
     public TextChannel channel() {
-        return channel;
+        return event.getChannel();
     }
 
     public String message() {

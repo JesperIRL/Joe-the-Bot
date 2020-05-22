@@ -1,7 +1,6 @@
-package Joe.Modules;
+package joe.modules;
 
-import Joe.*;
-
+import joe.*;
 import java.util.*;
 
 public class EightBall extends AbstractBotModule {
@@ -39,7 +38,7 @@ public class EightBall extends AbstractBotModule {
         return "Let the Magic ~~and totally not random~~ 8 ball decide your fate...";
     }
 
-    public String handleCommand(Message message) {
+    public String handleCommand(BotMessage message) {
         if (message.command().equals("!8ball")) {
             if (message.params() == null) {
                 return "Usage: `!8ball` <_question_>";

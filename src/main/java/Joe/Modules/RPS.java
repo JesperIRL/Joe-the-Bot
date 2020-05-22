@@ -1,11 +1,9 @@
-package Joe.Modules;
+package joe.modules;
 
-import Joe.*;
-
+import joe.*;
 import java.util.*;
 
 /* Todo:
- * Rename class to RPS
  * Allow emojis and read guesses from messages, not commands
  */
 
@@ -34,7 +32,7 @@ public class RPS extends AbstractBotModule {
         return "Rock, Paper, or Scissors? That is the question. The bot chose one, you chose one, only one can win.";
     }
 
-    public String handleCommand(Message message) {
+    public String handleCommand(BotMessage message) {
         if (message.command().equals("!rps")) {
             if (message.params() == null) {
                 return "Usage: `!rps` <`rock`|`paper`|`scissors`>";

@@ -1,7 +1,6 @@
-package Joe.Modules;
+package joe.modules;
 
-import Joe.*;
-
+import joe.*;
 import java.util.*;
 
 /* Todo:
@@ -22,7 +21,7 @@ public class GuessNumber extends AbstractBotModule {
         return "Guess a number.";
     }
 
-    public String handleCommand(Message message) {
+    public String handleCommand(BotMessage message) {
         if (message.command().equals("!guessnumber")) {
             if (message.params() == null) {
                 if (current != 0) {
@@ -37,7 +36,7 @@ public class GuessNumber extends AbstractBotModule {
         return null;
     }
 
-    public String handleMessage(Message message) {
+    public String handleMessage(BotMessage message) {
         if (message.message().matches("[0123456789]+")) {
             if (current == 0) {
                 return null;

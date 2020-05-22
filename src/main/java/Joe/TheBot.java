@@ -1,23 +1,16 @@
-package Joe;
+package joe;
 
-import Joe.*;
-import Joe.Modules.*;
-
+import joe.*;
+import joe.modules.*;
+import java.util.ArrayList;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 
-import java.util.ArrayList;
-
 public class TheBot {
-    static boolean active = true;
-    static ArrayList<BotModule> modules = new ArrayList<BotModule>();
+    private boolean active = true;
+    private ArrayList<BotModule> modules = new ArrayList<BotModule>();
 
-    public static void main(String[] args) {
-        if (args.length == 0) {
-            System.out.println("Discord token missing");
-            System.exit(20);
-        }
-        String token = args[0];
+    public TheBot(String token) {
         DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
 
         modules.add(new Calculator());
@@ -29,7 +22,7 @@ public class TheBot {
         modules.add(new Time());
 
         api.addMessageCreateListener(event -> {
-            Message message = new Message(event);
+            BotMessage message = new BotMessage(event);
 
             if (message.command() != null) {
                 if (message.command().equals("!activate")) {
@@ -57,5 +50,14 @@ public class TheBot {
                 }
             }
         });
+    }
+
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Discord token missing");
+            System.exit(20);
+        }
+        String token = args[0];
+        TheBot joe = new TheBot(token);
     }
 }

@@ -1,7 +1,6 @@
-package Joe.Modules;
+package joe.modules;
 
-import Joe.*;
-
+import joe.*;
 import java.text.*;
 import java.util.*;
 import java.time.*;
@@ -19,7 +18,7 @@ public class Time extends AbstractBotModule {
         return "Check the time in some time zones.";
     }
 
-    public String handleCommand(Message message) {
+    public String handleCommand(BotMessage message) {
         if (message.command().equals("!time")) {
             if (message.params() == null) {
                 return time(false);

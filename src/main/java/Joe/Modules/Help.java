@@ -1,8 +1,11 @@
-package Joe.Modules;
+package joe.modules;
 
-import Joe.*;
-
+import joe.*;
 import java.util.*;
+
+/* Todo:
+ * Sort commands in alphabetical order, and clean up the output.
+ */
 
 public class Help extends AbstractBotModule {
     private ArrayList<BotModule> modules;
@@ -21,7 +24,7 @@ public class Help extends AbstractBotModule {
         return "Gives help on modules and commands supported by the bot.";
     }
 
-    public String handleCommand(Message message) {
+    public String handleCommand(BotMessage message) {
         if (message.command().equals("!help")) {
             if (message.params() == null) {
                 String reply = "Available commands:\n";

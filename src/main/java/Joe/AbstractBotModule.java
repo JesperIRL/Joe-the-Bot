@@ -1,7 +1,6 @@
-package Joe.Modules;
+package joe;
 
-import Joe.*;
-
+import joe.*;
 import java.util.*;
 
 public abstract class AbstractBotModule implements BotModule {
@@ -10,11 +9,11 @@ public abstract class AbstractBotModule implements BotModule {
       return null;
    }
    
-   public String handleCommand(Message message) {
+   public String handleCommand(BotMessage message) {
       return null;
    }
    
-   public String handleMessage(Message message) {
+   public String handleMessage(BotMessage message) {
       return null;
    }
 }

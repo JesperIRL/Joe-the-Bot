@@ -1,13 +1,8 @@
-package Joe.Modules;
+package joe.modules;
 
-import Joe.*;
-
+import joe.*;
 import java.io.*;
 import java.util.*;
-
-/* Todo:
- * Move description to a !help text
- */
 
 public class Calculator extends AbstractBotModule {
     private abstract class CalcException extends RuntimeException { }
@@ -47,7 +42,7 @@ public class Calculator extends AbstractBotModule {
                 "log ln lg abs rnd sqrt cbrt`";
     }
 
-    public String handleCommand(Message message) {
+    public String handleCommand(BotMessage message) {
         if (message.command().equals("!calc")) {
             if (message.params() == null) {
                 return "Usage: `!calc` <_expression_|`reset`>";

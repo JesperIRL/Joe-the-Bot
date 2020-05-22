@@ -1,7 +1,6 @@
-package Joe.Modules;
+package joe.modules;
 
-import Joe.*;
-
+import joe.*;
 import java.util.*;
 
 public class MasterMind extends AbstractBotModule {
@@ -19,7 +18,7 @@ public class MasterMind extends AbstractBotModule {
         return "Master mind, the game.";
     }
 
-    public String handleCommand(Message message) {
+    public String handleCommand(BotMessage message) {
         if (message.command().equals("!mm")) {
             if (message.params() == null) {
                 if (key != null) {
@@ -76,7 +75,7 @@ public class MasterMind extends AbstractBotModule {
             "by typing `!mm code` The code is " + level + " digits.";
     }
 
-    public String guess(String guess) {
+    private String guess(String guess) {
         if (guess.matches("[0123456789]+") && guess.length() == level) {
             char[] keyCopy = key.toCharArray();
             String fancyReply = "";
