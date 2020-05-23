@@ -44,16 +44,16 @@ public class Calculator extends AbstractBotModule {
                 "log ln lg abs rnd sqrt cbrt`";
     }
 
-    public String handleCommand(BotMessage message) {
+    public ModuleResponse handleCommand(BotMessage message) {
         if (message.command().equals("!calc")) {
             if (message.params() == null) {
-                return "Usage: `!calc` <_expression_|`reset`>";
+                return new ModuleResponse("Usage: `!calc` <_expression_|`reset`>");
             } else if (message.params().equals("reset")) {
                 variables.clear();
                 memory.clear();
                 setupBuiltIn();
             } else {
-                return calc(message.params());
+                return new ModuleResponse(calc(message.params()));
             }
         }
         return null;

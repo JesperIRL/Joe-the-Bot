@@ -24,20 +24,20 @@ public class Help extends AbstractBotModule {
         return "Gives help on modules and commands supported by the bot.";
     }
 
-    public String handleCommand(BotMessage message) {
+    public ModuleResponse handleCommand(BotMessage message) {
         if (message.command().equals("!help")) {
             if (message.params() == null) {
                 String reply = "Available commands:\n";
                 for (BotModule mod: modules) {
                     reply += mod.commands();
                 }
-                return reply;
+                return new ModuleResponse(reply);
             } else {
                 for (BotModule mod: modules) {
                     for (String command: mod.commands()) {
                         if (command.equals(message.params()) ||
                             (message.params().charAt(0) != '!' && command.substring(1).equals(message.params()))) {
-                            return "[`" + command + "`] " + mod.description();
+                            return new ModuleResponse("[`" + command + "`] " + mod.description());
                         }
                     }
                 }

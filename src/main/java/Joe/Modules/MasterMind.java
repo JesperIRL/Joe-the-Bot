@@ -18,7 +18,7 @@ public class MasterMind extends AbstractBotModule {
         return "Master mind, the game.";
     }
 
-    public String handleCommand(BotMessage message) {
+    public ModuleResponse handleCommand(BotMessage message) {
         if (message.command().equals("!mm")) {
             if (message.params() == null) {
                 if (key != null) {
@@ -27,18 +27,18 @@ public class MasterMind extends AbstractBotModule {
                         for (int i = 1; i < moves.size(); i++) {
                             movesList += "\n" + moves.get(i);
                         }
-                        return "A game is in progress. Game history:\n" + movesList;
+                        return new ModuleResponse("A game is in progress. Game history:\n" + movesList);
                     } else {
-                        return "Usage: `!mm [code]`";
+                        return new ModuleResponse("Usage: `!mm [code]`");
                     }
                 } else {
-                    return newGame(null);
+                    return new ModuleResponse(newGame(null));
                 }
             } else {
                 if (key != null) {
-                    return guess(message.params());
+                    return new ModuleResponse(guess(message.params()));
                 } else {
-                    return newGame(message.params());
+                    return new ModuleResponse(newGame(message.params()));
                 }
             }
         }

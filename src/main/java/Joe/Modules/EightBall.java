@@ -38,13 +38,13 @@ public class EightBall extends AbstractBotModule {
         return "Let the Magic ~~and totally not random~~ 8 ball decide your fate...";
     }
 
-    public String handleCommand(BotMessage message) {
+    public ModuleResponse handleCommand(BotMessage message) {
         if (message.command().equals("!8ball")) {
             if (message.params() == null) {
-                return "Usage: `!8ball` <_question_>";
+                return new ModuleResponse("Usage: `!8ball` <_question_>");
             } else {
                 int answer = (int)Math.floor(Math.random() * answers.size());
-                return answers.get(answer);
+                return new ModuleResponse(answers.get(answer));
             }
         }
         return null;

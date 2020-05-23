@@ -32,14 +32,14 @@ public class RPS extends AbstractBotModule {
         return "Rock, Paper, or Scissors? That is the question. The bot chose one, you chose one, only one can win.";
     }
 
-    public String handleCommand(BotMessage message) {
+    public ModuleResponse handleCommand(BotMessage message) {
         if (message.command().equals("!rps")) {
             if (message.params() == null) {
-                return "Usage: `!rps` <`rock`|`paper`|`scissors`>";
+                return new ModuleResponse("Usage: `!rps` <`rock`|`paper`|`scissors`>");
             } else if (message.params().equalsIgnoreCase("rock") || message.params().equalsIgnoreCase("paper") || message.params().equalsIgnoreCase("scissors")) {
-                return game(message.params().toLowerCase());
+                return new ModuleResponse(game(message.params().toLowerCase()));
             } else {
-                return "Usage: `!rps` <`rock`|`paper`|`scissors`>";
+                return new ModuleResponse("Usage: `!rps` <`rock`|`paper`|`scissors`>");
             }
         }
         return null;

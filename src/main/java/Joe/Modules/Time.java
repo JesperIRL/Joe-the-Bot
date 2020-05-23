@@ -18,18 +18,18 @@ public class Time extends AbstractBotModule {
         return "Check the time in some time zones.";
     }
 
-    public String handleCommand(BotMessage message) {
+    public ModuleResponse handleCommand(BotMessage message) {
         if (message.command().equals("!time")) {
             if (message.params() == null) {
-                return time(false);
+                return new ModuleResponse(time(false));
             } else {
-                return parseTime(message.params());
+                return new ModuleResponse(parseTime(message.params()));
             }
         } else if (message.command().equals("!date")) {
             if (message.params() == null) {
-                return time(true);
+                return new ModuleResponse(time(true));
             } else {
-                return parseDateTime(message.params());
+                return new ModuleResponse(parseDateTime(message.params()));
             }
         }
         return null;
