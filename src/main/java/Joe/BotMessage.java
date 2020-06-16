@@ -18,32 +18,15 @@ public class BotMessage {
                 command = message.substring(0, space).toLowerCase();
                 params = message.substring(space + 1);
             } else {
-                command = message;
+                command = message.toLowerCase();
             }
         }
     }
 
-    public boolean isCommand() {
-        return command != null;
-    }
-
-    public boolean hasParams() {
-        return params != null;
-    }
-
-    public TextChannel channel() {
-        return event.getChannel();
-    }
-
-    public String message() {
-        return message;
-    }
-
-    public String command() {
-        return command;
-    }
-
-    public String params() {
-        return params;
-    }
+    public boolean isCommand()   { return command != null; }
+    public boolean hasParams()   { return params != null; }
+    public TextChannel channel() { return event.getChannel(); }
+    public String message()      { return message; }
+    public String command()      { return command; }
+    public String params()       { return params; }
 }

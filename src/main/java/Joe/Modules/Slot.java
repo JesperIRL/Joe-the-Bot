@@ -40,7 +40,7 @@ public class Slot extends AbstractBotModule {
     }
 
     public ModuleResponse activateEvent(BotEvent event) {
-        this.lastMessage().edit(spin());
+        lastMessage().edit(spin());
         return steps[0] + steps[1] + steps[2] == 0 ? null : new ModuleResponse(delay);
     }
 

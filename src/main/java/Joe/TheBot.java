@@ -42,11 +42,15 @@ public class TheBot {
                         }
                         try {
                             Thread.sleep(timeToNextEvent());
-                        } catch (InterruptedException e) { }
+                        } catch (InterruptedException e) {
+                            this.interrupted();
+                        }
                     }
                 }
             };
             event_handler.start();
+        } else {
+            event_handler.interrupt();
         }
     }
 
@@ -91,23 +95,27 @@ public class TheBot {
                         active = false;
                     } else if (message.command().equals("!event")) {
                         message.channel().sendMessage("List: " + eventlist.size());
-                    } else {
-                        for (BotModule mod: modules) {
-                            ModuleResponse response = mod.handleCommand(message);
-                            if (response != null) {
-                                if (response.response() != null) {
-                                    CompletableFuture sent = message.channel().sendMessage(response.response());
-                                    mod.storeMessage(sent);
-                                }
-                                if (response.eventRequest() != 0) {
-                                    scheduleEvent(new BotEvent(message.channel(), mod, response.eventRequest()));
-                                }
-                            }
-                        }
                     }
                 }
-            } else {
-                for (BotModule mod: modules) {
+            }
+        });
+
+        for (BotModule mod: modules) {
+            api.addMessageCreateListener(event -> {
+                BotMessage message = new BotMessage(event);
+
+                if (message.command() != null) {
+                    ModuleResponse response = mod.handleCommand(message);
+                    if (response != null) {
+                        if (response.response() != null) {
+                            CompletableFuture sent = message.channel().sendMessage(response.response());
+                            mod.storeMessage(sent);
+                        }
+                        if (response.eventRequest() != 0) {
+                            scheduleEvent(new BotEvent(message.channel(), mod, response.eventRequest()));
+                        }
+                    }
+                } else {
                     ModuleResponse response = mod.handleMessage(message);
                     if (response != null) {
                         if (response.response() != null) {
@@ -118,8 +126,8 @@ public class TheBot {
                         }
                     }
                 }
-            }
-        });
+            });
+        }
 
         logger.info("Invite link: " + api.createBotInvite());
     }
