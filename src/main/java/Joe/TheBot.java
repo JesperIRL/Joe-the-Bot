@@ -81,6 +81,7 @@ public class TheBot {
         modules.add(new Slot());
         modules.add(new Time());
         modules.add(new UserDictionary());
+        modules.add(new Yatzy(api));
 
         api.addMessageCreateListener(event -> {
             BotMessage message = new BotMessage(event);
