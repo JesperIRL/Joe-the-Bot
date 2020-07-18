@@ -69,8 +69,12 @@ public class TheBot {
         return 0;
     }
 
+    /**********************************************************************
+     * Bot constructor
+     */
     public TheBot(String token) {
         DiscordApi api = new DiscordApiBuilder().setToken(token).login().join();
+        UserManager user_manager = new UserManager(api);
 
         modules.add(new Calculator());
         modules.add(new EightBall());
@@ -96,6 +100,10 @@ public class TheBot {
                         active = false;
                     } else if (message.command().equals("!event")) {
                         message.channel().sendMessage("List: " + eventlist.size());
+                    } else if (message.command().equals("!score")) {
+                        message.channel().sendMessage("Your score: " + message.sender().score());
+                    } else if (message.command().equals("!users")) {
+                        message.channel().sendMessage(user_manager.listUsers(event.getServer()));
                     }
                 }
             }

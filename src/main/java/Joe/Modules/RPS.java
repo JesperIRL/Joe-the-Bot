@@ -37,7 +37,7 @@ public class RPS extends AbstractBotModule {
             if (message.params() == null) {
                 return new ModuleResponse("Usage: `!rps` <`rock`|`paper`|`scissors`>");
             } else if (message.params().equalsIgnoreCase("rock") || message.params().equalsIgnoreCase("paper") || message.params().equalsIgnoreCase("scissors")) {
-                return new ModuleResponse(game(message.params().toLowerCase()));
+                return new ModuleResponse(game(message.params().toLowerCase(), message.sender()));
             } else {
                 return new ModuleResponse("Usage: `!rps` <`rock`|`paper`|`scissors`>");
             }
@@ -45,7 +45,7 @@ public class RPS extends AbstractBotModule {
         return null;
     }
 
-    private String game(String command) {
+    private String game(String command, Person player) {
         int guess = ROCK;
         if (command.equals("paper")) {
             guess = PAPER;
@@ -61,6 +61,7 @@ public class RPS extends AbstractBotModule {
             answer = "I had " + intToWord(my_choise) + " - I win!!";
         } else {
             answer = "I had " + intToWord(my_choise) + " - You win!";
+            player.addScore(1);
         }
         my_choise = NONE;
         return answer;

@@ -1,5 +1,6 @@
 package joe;
 
+import joe.UserManager;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.event.message.CertainMessageEvent;
 
@@ -8,6 +9,7 @@ public class BotMessage {
     private String message;
     private String command;
     private String params;
+    private Person sender;
 
     public BotMessage(CertainMessageEvent event) {
         this.event = event;
@@ -21,6 +23,7 @@ public class BotMessage {
                 command = message.toLowerCase();
             }
         }
+        sender = UserManager.getUser(event.getMessageAuthor());
     }
 
     public boolean isCommand()   { return command != null; }
@@ -29,4 +32,5 @@ public class BotMessage {
     public String message()      { return message; }
     public String command()      { return command; }
     public String params()       { return params; }
+    public Person sender()       { return sender; }
 }
